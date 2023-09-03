@@ -77,14 +77,21 @@ fun menuInit(menu: Menu?) {
 
 @Preview
 @Composable
-fun ChooseLessonMenu(){
+fun ChooseLessonMenu() {
     DropdownMenu(expanded = isShowPopupMenu, onDismissRequest = {
     }) {
+        DropdownMenuItem(text = {
+            Text("Close")
+        }, onClick = {
+            isShowPopupMenu = false
+        })
         for ((index, value) in files.withIndex()) {
             println("the element at $index is $value")
             DropdownMenuItem(text = {
-                Text(value.name?:"",
-                    color = if (index in (fileBeginIndex..fileEndIndex)) Color.Red else Color.White)
+                Text(
+                    value.name ?: "",
+                    color = if (index in (fileBeginIndex..fileEndIndex)) Color.Red else Color.White
+                )
             }, onClick = {
                 fileIndex = index
                 if (fileIndex < fileBeginIndex) {
@@ -95,7 +102,7 @@ fun ChooseLessonMenu(){
                 }
                 sortFiles()
                 playMp3(files[fileIndex].uri, 0)
-                isShowPopupMenu=false
+                isShowPopupMenu = false
             })
         }
     }
