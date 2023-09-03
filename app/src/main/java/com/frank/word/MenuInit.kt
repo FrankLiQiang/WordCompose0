@@ -93,15 +93,17 @@ fun ChooseLessonMenu() {
                     color = if (index in (fileBeginIndex..fileEndIndex)) Color.Red else Color.White
                 )
             }, onClick = {
-                fileIndex = index
-                if (fileIndex < fileBeginIndex) {
-                    fileBeginIndex = fileIndex
+                if (fileIndex != index) {
+                    fileIndex = index
+                    if (fileIndex < fileBeginIndex) {
+                        fileBeginIndex = fileIndex
+                    }
+                    if (fileIndex > fileEndIndex) {
+                        fileEndIndex = fileIndex
+                    }
+                    sortFiles()
+                    playMp3(files[fileIndex].uri, 0)
                 }
-                if (fileIndex > fileEndIndex) {
-                    fileEndIndex = fileIndex
-                }
-                sortFiles()
-                playMp3(files[fileIndex].uri, 0)
                 isShowPopupMenu = false
             })
         }
